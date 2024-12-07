@@ -1,0 +1,14 @@
+services:
+    organizr:
+        container_name: organizr
+        hostname: organizr
+        image: organizr/organizr:latest
+        restart: unless-stopped
+        ports:
+            - 80:80
+        volumes:
+            - ./config:/config
+        environment:
+            - PUID=1002
+            - PGID=1002
+            - TZ=Australia/Melbourne
