@@ -1,0 +1,24 @@
+$TTL 2d
+
+$ORIGIN home.doubie.dev.
+
+@                       IN      SOA     ns.home.doubie.dev. info.home.doubie.dev. (
+                                        2024112500  ; serial
+                                        12h         ; refresh
+                                        15m         ; retry
+                                        3w          ; expire
+                                        2h          ; minimum ttl
+                                        )
+
+                        IN      NS      ns.home.doubie.dev.
+
+ns                      IN      A       192.168.2.1
+
+; -- DNS Records
+prx-prod-1              IN      A       192.168.1.1
+prx-prod-2              IN      A       192.168.1.2
+srv-prod-1              IN      A       192.168.2.1
+
+; srv-prod-1 subdomains
+$ORIGIN srv-prod-1.home.doubie.dev.
+*                       IN      A       192.168.2.1

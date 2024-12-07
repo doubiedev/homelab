@@ -1,0 +1,20 @@
+---
+# secrets:
+#   ddclient_password:
+#     file: ./secrets/password
+
+services:
+  ddclient:
+    image: lscr.io/linuxserver/ddclient:latest
+    container_name: ddclient
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+      # - FILE__PASS=/run/secrets/ddclient_password
+      # secrets:
+      # - ddclient_password
+    volumes:
+      - ./config:/config
+    restart: unless-stopped
+

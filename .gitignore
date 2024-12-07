@@ -1,0 +1,5 @@
+unused-atm
+*.env
+/ddclient/config/ddclient.conf
+/teleport/data/*
+/traefik/data/certs/*
