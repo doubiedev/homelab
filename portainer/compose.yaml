@@ -6,6 +6,9 @@ services:
   app:
     container_name: portainer
     image: docker.io/portainer/portainer-ce:2.21.1
+    command: -H unix:///var/run/docker.sock
+    networks:
+      - frontend
     ports:
       - 9000:9000
       - 9443:9443
@@ -13,4 +16,15 @@ services:
     volumes:
       - /run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.tls.certresolver=cloudflare
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.rule=Host(`portainer.srv-1.home.doubie.dev`)
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      - traefik.http.routers.portainer.service=portainer
     restart: unless-stopped
+networks:
+  frontend:
+    external: true

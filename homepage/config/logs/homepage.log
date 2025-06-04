@@ -1,0 +1,37 @@
+[2025-06-04T03:34:17.259Z] info: kubernetes.yaml was copied to the config folder
+[2025-06-04T03:34:59.649Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.033Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.040Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.054Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.087Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.104Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.109Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.113Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.118Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.127Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.135Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:35:06.151Z] error: Host validation failed for: 192.168.2.1:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T03:36:17.919Z] info: docker.yaml was copied to the config folder
+[2025-06-04T03:36:17.921Z] info: services.yaml was copied to the config folder
+[2025-06-04T03:36:17.922Z] info: bookmarks.yaml was copied to the config folder
+[2025-06-04T03:36:17.937Z] info: widgets.yaml was copied to the config folder
+[2025-06-04T03:36:17.938Z] info: custom.css was copied to the config folder
+[2025-06-04T03:36:17.939Z] info: custom.js was copied to the config folder
+[2025-06-04T04:36:32.748Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.947Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.951Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.958Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.965Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.970Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.975Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.980Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.985Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:32.994Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:33.000Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.315Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.810Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.816Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.837Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.846Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.853Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2025-06-04T04:36:51.897Z] error: Host validation failed for: homepage.srv-1.home.doubie.dev. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.

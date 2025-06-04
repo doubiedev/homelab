@@ -10,7 +10,7 @@ services:
       - traefik.http.routers.nginx-https.tls=true
       - traefik.http.routers.nginx-https.tls.certresolver=cloudflare
       - traefik.http.routers.nginx-https.entrypoints=websecure
-      - traefik.http.routers.nginx-https.rule=Host(`nginx.srv-prod-1.home.doubie.dev`)
+      - traefik.http.routers.nginx-https.rule=Host(`nginx.srv-1.home.doubie.dev`)
     restart: unless-stopped
 networks:
   frontend:

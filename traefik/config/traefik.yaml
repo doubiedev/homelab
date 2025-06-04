@@ -6,7 +6,7 @@ global:
 #     - loglevels [DEBUG, INFO, WARNING, ERROR, CRITICAL]
 #     - format [common, json, logfmt]
 log:
- level: INFO
+ level: DEBUG
 #  format: common
 #  filePath: /var/log/traefik/traefik.log
 
