@@ -31,4 +31,4 @@ networks:
   frontend:
     external: true
   backend:
-    external: false
+    external: true
