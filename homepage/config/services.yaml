@@ -1,18 +1,39 @@
----
 # For configuration options and examples, please see:
+---
 # https://gethomepage.dev/configs/services/
 
-- My First Group:
-    - My First Service:
-        href: http://localhost/
-        description: Homepage is awesome
+- Infrastructure & Networking:
+    - Proxmox:
+        href: https://pve-1.home.doubie.dev:8006
+        description: Proxmox VE 1
+        icon: proxmox.png
+        siteMonitor: https://pve-1.home.doubie.dev:8006
+        widget:
+          type: proxmox
+          url: https://pve-1.home.doubie.dev:8006
+          username: {{HOMEPAGE_VAR_PROXMOX_USERNAME}}
+          password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+    - Router:
+        href: http://192.168.0.1/
+        description: Router admin portal
+        icon: router.png
 
-- My Second Group:
-    - My Second Service:
-        href: http://localhost/
-        description: Homepage is the best
+- Management:
+    - Portainer:
+        href: https://portainer.srv-1.home.doubie.dev
+        description: portainer on srv-1
+        icon: portainer.png
+        siteMonitor: https://portainer.srv-1.home.doubie.dev
 
-- My Third Group:
-    - My Third Service:
-        href: http://localhost/
-        description: Homepage is 😎
+- Security and Identity:
+    - Authelia:
+        href: https://auth.srv-1.home.doubie.dev
+        description: authelia on srv-1
+        icon: authelia.png
+        siteMonitor: https://auth.srv-1.home.doubie.dev
+
+- Services:
+    - Nginx:
+        href: https://nginx.srv-1.home.doubie.dev
+        description: nginx web server
+        siteMonitor: https://nginx.srv-1.home.doubie.dev

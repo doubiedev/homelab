@@ -6,6 +6,9 @@
     - Github:
         - abbr: GH
           href: https://github.com/
+    - Cloudflare dashboard:
+        - abbr: CF
+          href: https://dash.cloudflare.com/
 
 - Social:
     - Reddit:

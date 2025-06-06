@@ -1,0 +1,16 @@
+---
+###############################################################
+#                         Users Database                      #
+###############################################################
+
+# This file can be used if you do not have an LDAP set up.
+
+# List of users
+users:
+  doubiedev:
+    displayname: "doubiedev"
+    password: "$argon2id$v=19$m=2097152,t=1,p=4$m5gCge5D3jQN4/QYEAYzNA$GnyoBR3JaJFqVz0aLkgzUqLdKijsLgbWdgLrWx6NjeY"
+    email: thedoubiedev@gmail.com
+    groups:
+      - admins
+      - dev

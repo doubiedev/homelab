@@ -16,15 +16,33 @@ services:
       HOMEPAGE_ALLOWED_HOSTS: homepage.srv-1.home.doubie.dev,192.168.2.1:3000 # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
       PUID: 1000
       PGID: 1000
+      HOMEPAGE_VAR_PROXMOX_USERNAME: ${HOMEPAGE_VAR_PROXMOX_USERNAME}
+      HOMEPAGE_VAR_PROXMOX_PASSWORD: ${HOMEPAGE_VAR_PROXMOX_PASSWORD}
     labels:
       - traefik.enable=true
       - traefik.http.routers.homepage.tls=true
       - traefik.http.routers.homepage.tls.certresolver=cloudflare
       - traefik.http.routers.homepage.entrypoints=websecure
       - traefik.http.routers.homepage.rule=Host(`homepage.srv-1.home.doubie.dev`)
-      - traefik.http.services.homepage.loadbalancer.server.port=3000
       - traefik.http.routers.homepage.service=homepage
+      - traefik.http.routers.homepage.middlewares=authelia@docker
+      - traefik.http.services.homepage.loadbalancer.server.port=3000
     restart: unless-stopped
+
+  # dockerproxy:
+  #   image: ghcr.io/tecnativa/docker-socket-proxy:0.3
+  #   container_name: dockerproxy
+  #   environment:
+  #     - CONTAINERS=1 # Allow access to viewing containers
+  #     - SERVICES=1 # Allow access to viewing services (necessary when using Docker Swarm)
+  #     - TASKS=1 # Allow access to viewing tasks (necessary when using Docker Swarm)
+  #     - POST=0 # Disallow any POST operations (effectively read-only)
+  #   ports:
+  #     - 127.0.0.1:2375:2375
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
+  #   restart: unless-stopped
+
 networks:
   frontend:
     external: true

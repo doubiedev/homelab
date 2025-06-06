@@ -8,5 +8,7 @@
     disk: /
 
 - search:
-    provider: duckduckgo
+    provider: brave
+    focus: true
+    showSearchSuggestions: true
     target: _blank
