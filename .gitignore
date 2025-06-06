@@ -3,3 +3,6 @@ unused-atm
 /ddclient/config/ddclient.conf
 /teleport/data/*
 /traefik/data/certs/*
+*.sqlite3
+*notification.txt
+*.log
