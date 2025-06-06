@@ -5,4 +5,5 @@ unused-atm
 /traefik/data/certs/*
 *.sqlite3
 *notification.txt
-**.log
+*.log
+homepage/config/logs/
