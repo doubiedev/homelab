@@ -17,6 +17,11 @@
         href: http://192.168.0.1/
         description: Router admin portal
         icon: router.png
+    - Traefik:
+        href: https://traefik.srv-1.home.doubie.dev
+        description: traefik on srv-1
+        icon: traefik.png
+        siteMonitor: https://traefik.srv-1.home.doubie.dev
 
 - Management:
     - Portainer:

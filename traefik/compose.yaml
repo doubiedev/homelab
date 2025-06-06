@@ -3,6 +3,9 @@ services:
   traefik:
     image: docker.io/library/traefik:v3.4.1
     container_name: traefik
+    networks:
+      - frontend
+      - backend
     ports:
       - 80:80
       - 443:443
@@ -15,9 +18,14 @@ services:
       - ./logs:/logs
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
-    networks:
-      - frontend
-      - backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard.tls=true
+      - traefik.http.routers.dashboard.tls.certresolver=cloudflare
+      - traefik.http.routers.dashboard.entrypoints=websecure
+      - traefik.http.routers.dashboard.rule=Host(`traefik.srv-1.home.doubie.dev`)
+      - traefik.http.routers.dashboard.middlewares=authelia@docker
+      - traefik.http.routers.dashboard.service=api@internal
     restart: unless-stopped
 networks:
   frontend:

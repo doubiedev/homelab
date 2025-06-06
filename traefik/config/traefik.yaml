@@ -17,8 +17,8 @@ accesslog:
   filePath: ./logs/access.log
 
 # -- (Optional) Enable API and Dashboard here, don't do in production
-# api:
-#   dashboard: true
+api:
+  dashboard: true
 #   disableDashboardAd: true
 #   insecure: true
 
