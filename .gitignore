@@ -1,9 +1,7 @@
 unused-atm
 *.env
 /ddclient/config/ddclient.conf
-/teleport/data/*
-/traefik/data/certs/*
+*cloudflare-acme.json
 *.sqlite3
 *notification.txt
 *.log
-*/logs/
