@@ -14,7 +14,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
-      - ./data/certs/:/var/traefik/certs/:rw
+      - ./config/conf/:/etc/traefik/conf/
+      - ./config/certs/:/var/traefik/certs/
       - ./logs:/logs
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
@@ -25,6 +26,7 @@ services:
       - traefik.http.routers.dashboard.entrypoints=websecure
       - traefik.http.routers.dashboard.rule=Host(`traefik.srv-1.home.doubie.dev`)
       - traefik.http.routers.dashboard.service=api@internal
+      - traefik.http.routers.dashboard.middlewares=authentik@file
     restart: unless-stopped
 networks:
   frontend:

@@ -26,6 +26,7 @@ services:
       - traefik.http.routers.homepage.rule=Host(`homepage.srv-1.home.doubie.dev`)
       - traefik.http.routers.homepage.service=homepage
       - traefik.http.services.homepage.loadbalancer.server.port=3000
+      - traefik.http.routers.homepage.middlewares=authentik@file
     restart: unless-stopped
 
   # dockerproxy:
