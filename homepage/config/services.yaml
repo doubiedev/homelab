@@ -36,6 +36,11 @@
         description: authelia on srv-1
         icon: authelia.png
         siteMonitor: https://auth.srv-1.home.doubie.dev
+    - Authentik:
+        href: https://authentik.srv-1.home.doubie.dev
+        description: authentik on srv-1
+        icon: authentik.png
+        siteMonitor: https://authentik.srv-1.home.doubie.dev
 
 - Services:
     - Nginx:

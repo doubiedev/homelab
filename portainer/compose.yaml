@@ -23,7 +23,6 @@ services:
       - traefik.http.routers.portainer.entrypoints=websecure
       - traefik.http.routers.portainer.rule=Host(`portainer.srv-1.home.doubie.dev`)
       - traefik.http.routers.portainer.service=portainer
-      - traefik.http.routers.portainer.middlewares=authelia@docker
       - traefik.http.services.portainer.loadbalancer.server.port=9000
     restart: unless-stopped
 networks:

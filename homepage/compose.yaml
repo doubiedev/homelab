@@ -13,7 +13,7 @@ services:
       - ./icons:/app/public/icons
       # - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: homepage.srv-1.home.doubie.dev,192.168.2.1:3000 # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
+      HOMEPAGE_ALLOWED_HOSTS: homepage.srv-1.home.doubie.dev # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
       PUID: 1000
       PGID: 1000
       HOMEPAGE_VAR_PROXMOX_USERNAME: ${HOMEPAGE_VAR_PROXMOX_USERNAME}
@@ -25,7 +25,6 @@ services:
       - traefik.http.routers.homepage.entrypoints=websecure
       - traefik.http.routers.homepage.rule=Host(`homepage.srv-1.home.doubie.dev`)
       - traefik.http.routers.homepage.service=homepage
-      - traefik.http.routers.homepage.middlewares=authelia@docker
       - traefik.http.services.homepage.loadbalancer.server.port=3000
     restart: unless-stopped
 

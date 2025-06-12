@@ -11,7 +11,6 @@ services:
       - traefik.http.routers.nginx-https.tls.certresolver=cloudflare
       - traefik.http.routers.nginx-https.entrypoints=websecure
       - traefik.http.routers.nginx-https.rule=Host(`nginx.srv-1.home.doubie.dev`)
-      - traefik.http.routers.nginx-https.middlewares=authelia@docker
     restart: unless-stopped
 networks:
   frontend:

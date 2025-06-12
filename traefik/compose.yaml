@@ -24,7 +24,6 @@ services:
       - traefik.http.routers.dashboard.tls.certresolver=cloudflare
       - traefik.http.routers.dashboard.entrypoints=websecure
       - traefik.http.routers.dashboard.rule=Host(`traefik.srv-1.home.doubie.dev`)
-      - traefik.http.routers.dashboard.middlewares=authelia@docker
       - traefik.http.routers.dashboard.service=api@internal
     restart: unless-stopped
 networks:
