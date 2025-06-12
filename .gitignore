@@ -6,4 +6,4 @@ unused-atm
 *.sqlite3
 *notification.txt
 *.log
-**/logs/
+*/logs/
