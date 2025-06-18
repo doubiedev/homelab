@@ -31,11 +31,6 @@
         siteMonitor: https://portainer.srv-1.home.doubie.dev
 
 - Security and Identity:
-    - Authelia:
-        href: https://auth.srv-1.home.doubie.dev
-        description: authelia on srv-1
-        icon: authelia.png
-        siteMonitor: https://auth.srv-1.home.doubie.dev
     - Authentik:
         href: https://authentik.srv-1.home.doubie.dev
         description: authentik on srv-1
