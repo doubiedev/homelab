@@ -5,3 +5,5 @@ unused-atm
 *.sqlite3
 *notification.txt
 *.log
+jellyfin/cache/
+jellyfin/config/

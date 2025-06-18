@@ -42,3 +42,7 @@
         href: https://nginx.srv-1.home.doubie.dev
         description: nginx web server
         siteMonitor: https://nginx.srv-1.home.doubie.dev
+    - Jellyfin:
+        href: https://jellyfin.srv-1.home.doubie.dev
+        description: jellyfin media server
+        siteMonitor: https://jellyfin.srv-1.home.doubie.dev
