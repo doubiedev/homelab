@@ -1,9 +1,9 @@
-unused-atm
 *.env
-/ddclient/config/ddclient.conf
+*/ddclient.conf
 *cloudflare-acme.json
 *.sqlite3
 *notification.txt
 *.log
-jellyfin/cache/
-jellyfin/config/
+*/jellyfin/cache/
+*/jellyfin/config/
+*/organizr/config/
