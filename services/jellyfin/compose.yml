@@ -11,7 +11,7 @@ services:
       - ./config:/config
       - ./cache:/cache
       - type: bind
-        source: /mnt/jellyfin
+        source: /mnt/media
         target: /media
     restart: 'unless-stopped'
     # Optional - alternative address used for autodiscovery
