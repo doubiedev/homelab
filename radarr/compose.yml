@@ -1,0 +1,30 @@
+---
+services:
+  radarr:
+    image: ghcr.io/hotio/radarr:release-5.26.2.10099
+    container_name: radarr
+    networks:
+      - frontend
+    ports:
+      - 7878:7878
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    restart: 'unless-stopped'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Australia/Melbourne
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.radarr.tls=true
+      - traefik.http.routers.radarr.tls.certresolver=cloudflare
+      - traefik.http.routers.radarr.entrypoints=websecure,web
+      - traefik.http.routers.radarr.rule=Host(`radarr.srv-1.home.doubie.dev`)
+      - traefik.http.routers.radarr.service=radarr
+      - traefik.http.services.radarr.loadbalancer.server.port=7878
+      - traefik.http.routers.radarr.middlewares=authentik@file
+networks:
+  frontend:
+    external: true

@@ -46,8 +46,15 @@
     - Nginx:
         href: https://nginx.srv-1.home.doubie.dev
         description: nginx web server
+        icon: nginx.png
         siteMonitor: https://nginx.srv-1.home.doubie.dev
     - Jellyfin:
         href: https://jellyfin.srv-1.home.doubie.dev
         description: jellyfin media server
+        icon: jellyfin.png
         siteMonitor: https://jellyfin.srv-1.home.doubie.dev
+    - Radarr:
+        href: https://radarr.srv-1.home.doubie.dev
+        description: radarr on srv-1
+        icon: radarr.png
+        siteMonitor: https://radarr.srv-1.home.doubie.dev

@@ -5,13 +5,10 @@ services:
     container_name: cloudflare-tunnel
     networks:
       - frontend
-      - backend
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
     command: tunnel --no-autoupdate run
     restart: unless-stopped
 networks:
   frontend:
-    external: true
-  backend:
     external: true

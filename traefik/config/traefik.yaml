@@ -39,7 +39,7 @@ entryPoints:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: ${EMAIL}
+      email: thedoubiedev@gmail.com
       storage: /var/traefik/certs/cloudflare-acme.json
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       keyType: EC256

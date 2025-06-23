@@ -1,9 +1,10 @@
 *.env
-*/ddclient.conf
+*ddclient.conf
 *cloudflare-acme.json
 *.sqlite3
 *notification.txt
 *.log
-*/jellyfin/cache/
-*/jellyfin/config/
-*/organizr/config/
+jellyfin/cache/
+jellyfin/config/
+radarr/config/
+_deprecated/organizr/config/
