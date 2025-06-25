@@ -29,6 +29,11 @@
         description: portainer on srv-1
         icon: portainer.png
         siteMonitor: https://portainer.srv-1.home.doubie.dev
+    - Syncthing:
+        href: https://syncthing.srv-1.home.doubie.dev
+        description: syncthing on srv-1
+        icon: syncthing.png
+        siteMonitor: https://syncthing.srv-1.home.doubie.dev
 
 - Security and Identity:
     - Authentik:
@@ -43,11 +48,6 @@
         siteMonitor: https://netbird.srv-1.home.doubie.dev
 
 - Services:
-    - Nginx:
-        href: https://nginx.srv-1.home.doubie.dev
-        description: nginx web server
-        icon: nginx.png
-        siteMonitor: https://nginx.srv-1.home.doubie.dev
     - Jellyfin:
         href: https://jellyfin.srv-1.home.doubie.dev
         description: jellyfin media server
@@ -58,3 +58,8 @@
         description: radarr on srv-1
         icon: radarr.png
         siteMonitor: https://radarr.srv-1.home.doubie.dev
+    - Nginx:
+        href: https://nginx.srv-1.home.doubie.dev
+        description: nginx web server
+        icon: nginx.png
+        siteMonitor: https://nginx.srv-1.home.doubie.dev

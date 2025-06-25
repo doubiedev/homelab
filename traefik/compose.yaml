@@ -19,6 +19,7 @@ services:
       - ./logs:/logs
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+      - TZ=Australia/Melbourne
     labels:
       - traefik.enable=true
       - traefik.http.routers.dashboard.tls=true

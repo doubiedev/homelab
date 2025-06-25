@@ -8,3 +8,4 @@ jellyfin/cache/
 jellyfin/config/
 radarr/config/
 _deprecated/organizr/config/
+syncthing/config/

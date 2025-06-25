@@ -17,6 +17,7 @@ services:
     # Optional - alternative address used for autodiscovery
     environment:
       - JELLYFIN_PublishedServerUrl=https://jellyfin.srv-1.home.doubie.dev
+      - TZ=Australia/Melbourne
     labels:
       - traefik.enable=true
       - traefik.http.routers.jellyfin.tls=true

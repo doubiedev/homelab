@@ -1,0 +1,33 @@
+---
+services:
+  syncthing:
+    image: linuxserver/syncthing:1.29.7
+    container_name: syncthing
+    # hostname: syncthing #optional
+    networks:
+      - frontend
+    ports:
+      - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    volumes:
+      - ./config:/config
+      - /mnt/data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Melbourne
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.syncthing.tls=true
+      - traefik.http.routers.syncthing.tls.certresolver=cloudflare
+      - traefik.http.routers.syncthing.entrypoints=websecure
+      - traefik.http.routers.syncthing.rule=Host(`syncthing.srv-1.home.doubie.dev`)
+      - traefik.http.routers.syncthing.service=syncthing
+      - traefik.http.services.syncthing.loadbalancer.server.port=8384
+      - traefik.http.routers.syncthing.middlewares=authentik@file
+    restart: unless-stopped
+networks:
+  frontend:
+    external: true

@@ -18,6 +18,7 @@ services:
       PGID: 1000
       HOMEPAGE_VAR_PROXMOX_USERNAME: ${HOMEPAGE_VAR_PROXMOX_USERNAME}
       HOMEPAGE_VAR_PROXMOX_PASSWORD: ${HOMEPAGE_VAR_PROXMOX_PASSWORD}
+      TZ: Australia/Melbourne
     labels:
       - traefik.enable=true
       - traefik.http.routers.homepage.tls=true
