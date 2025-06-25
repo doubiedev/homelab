@@ -3,7 +3,7 @@ $TTL 2d
 $ORIGIN home.doubie.dev.
 
 @                       IN      SOA     ns.home.doubie.dev. info.home.doubie.dev. (
-                                        2025060300  ; serial
+                                        2025060301  ; serial
                                         12h         ; refresh
                                         15m         ; retry
                                         3w          ; expire
@@ -24,3 +24,6 @@ srv-2                   IN      A       192.168.2.2
 ;$ORIGIN srv-1.home.doubie.dev.
 ;*                       IN      A       192.168.2.1
 *.srv-1                 IN      A       192.168.2.1
+
+y370                    IN      A       192.168.0.10
+mbox                    IN      A       192.168.0.11
