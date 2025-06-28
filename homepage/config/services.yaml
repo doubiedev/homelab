@@ -23,19 +23,12 @@
         description: Router admin portal
         icon: router.png
 
-- Management:
+- Management, Security and Identity:
     - Portainer:
         href: https://portainer.srv-1.home.doubie.dev
         description: portainer on srv-1
         icon: portainer.png
         siteMonitor: https://portainer.srv-1.home.doubie.dev
-    - Syncthing:
-        href: https://syncthing.srv-1.home.doubie.dev
-        description: syncthing on srv-1
-        icon: syncthing.png
-        siteMonitor: https://syncthing.srv-1.home.doubie.dev
-
-- Security and Identity:
     - Authentik:
         href: https://authentik.srv-1.home.doubie.dev
         description: authentik on srv-1
@@ -46,8 +39,18 @@
         description: netbird on srv-1
         icon: netbird.png
         siteMonitor: https://netbird.srv-1.home.doubie.dev
+    - Syncthing:
+        href: https://syncthing.srv-1.home.doubie.dev
+        description: syncthing on srv-1
+        icon: syncthing.png
+        siteMonitor: https://syncthing.srv-1.home.doubie.dev
 
 - Services:
+    - Nextcloud:
+        href: https://nc.srv-1.home.doubie.dev
+        description: nextcloud on srv-1
+        icon: nextcloud.png
+        siteMonitor: https://nc.srv-1.home.doubie.dev
     - Jellyfin:
         href: https://jellyfin.srv-1.home.doubie.dev
         description: jellyfin media server
