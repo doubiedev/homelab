@@ -20,10 +20,12 @@ pve-2                   IN      A       192.168.1.2
 srv-1                   IN      A       192.168.2.1
 srv-2                   IN      A       192.168.2.2
 
-; srv-1 subdomains
+; Server subdomains
 ;$ORIGIN srv-1.home.doubie.dev.
 ;*                       IN      A       192.168.2.1
 *.srv-1                 IN      A       192.168.2.1
+*.srv-2                 IN      A       192.168.2.2
 
+; Clients
 y370                    IN      A       192.168.0.10
 mbox                    IN      A       192.168.0.11
