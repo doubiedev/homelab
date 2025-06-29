@@ -4,8 +4,8 @@
 *.sqlite3
 *notification.txt
 *.log
-jellyfin/cache/
-jellyfin/config/
-radarr/config/
 _deprecated/organizr/config/
-syncthing/config/
+srv-2/jellyfin/cache/
+srv-2/jellyfin/config/
+srv-2/radarr/config/
+srv-2/syncthing/config/
