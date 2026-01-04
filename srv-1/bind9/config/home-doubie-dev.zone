@@ -29,3 +29,4 @@ srv-2                   IN      A       192.168.2.2
 ; Clients
 y370                    IN      A       192.168.0.10
 mbox                    IN      A       192.168.0.11
+omarchy                 IN      A       192.168.0.12
