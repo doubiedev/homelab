@@ -1,12 +1,14 @@
 # homelab
 
-## Services To Add
-- [ ] organizr
-- [ ] planka
-- [ ] postgresql
-- [ ] traefik
-- [ ] bind9
-- [ ] pihole
-- [ ] grafana, loki?
-- [ ] wazuh?
-- [ ] 
+## Services To Add/Research
+- sonarr, radarr, jellyfin
+- nextcloud
+- kubernetes?
+- organizr
+- planka
+- grafana, loki?
+- wazuh?
+- vaultwarden
+- file browser
+- fail2ban
+- kodi tv
