@@ -4,6 +4,8 @@
 *.sqlite3
 *notification.txt
 *.log
+*.log.gz
+*.bak
 _deprecated/organizr/config/
 srv-2/jellyfin/cache/
 srv-2/jellyfin/config/

@@ -1,7 +1,7 @@
 ---
 services:
   traefik:
-    image: docker.io/library/traefik:v3.4.1
+    image: docker.io/library/traefik:v3.7
     container_name: traefik
     networks:
       - frontend
