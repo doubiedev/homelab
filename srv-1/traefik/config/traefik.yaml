@@ -65,11 +65,16 @@ certificatesResolvers:
   #   default:
   #     minVersion: VersionTLS12
 
+# providers:
+  # docker:
+  #   # -- (Optional) Enable this, if you want to expose all containers automatically
+  #   exposedByDefault: false
+  #   endpoint: "unix:///var/run/docker.sock"
 providers:
-  docker:
-    # -- (Optional) Enable this, if you want to expose all containers automatically
-    exposedByDefault: false
+  swarm:
     endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: frontend
   file:
     directory: /etc/traefik/conf/
     watch: true

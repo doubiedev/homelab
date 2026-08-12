@@ -1,0 +1,149 @@
+---
+services:
+  postgresql:
+    image: docker.io/library/postgres:16-alpine
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: Australia/Melbourne
+    networks:
+      backend:
+        aliases:
+          - postgresql
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == srv-1
+      restart_policy:
+        condition: on-failure
+
+  redis:
+    image: docker.io/library/redis:alpine
+    command: --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 3s
+    volumes:
+      - redis:/data
+    environment:
+      TZ: Australia/Melbourne
+    networks:
+      backend:
+        aliases:
+          - redis
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == srv-1
+      restart_policy:
+        condition: on-failure
+
+
+  server:
+    image: ghcr.io/goauthentik/server:2026.5
+    entrypoint:
+      - /entrypoint-wrapper.sh
+    command: server
+    environment:
+      AUTHENTIK_REDIS__HOST: redis
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER}
+      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "true"
+      AUTHENTIK_LISTEN__HTTP: 0.0.0.0:9001
+      TZ: Australia/Melbourne
+    secrets:
+      - authentik_secret_key
+    configs:
+      - source: authentik_entrypoint
+        target: /entrypoint-wrapper.sh
+        mode: 0555
+    volumes:
+      - ./media:/media
+      - ./custom-templates:/templates
+    networks:
+      - backend
+      - frontend
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == srv-1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=frontend
+        - traefik.http.routers.authentik.rule=Host(`authentik.srv-1.home.doubie.dev`)
+        - traefik.http.routers.authentik.entrypoints=websecure
+        - traefik.http.routers.authentik.tls=true
+        - traefik.http.routers.authentik.tls.certresolver=cloudflare
+        - traefik.http.routers.authentik.service=authentik-svc
+        - traefik.http.services.authentik-svc.loadbalancer.server.port=9001
+
+  worker:
+    image: ghcr.io/goauthentik/server:2026.5
+    entrypoint:
+      - /entrypoint-wrapper.sh
+    command: worker
+    user: root
+    environment:
+      AUTHENTIK_REDIS__HOST: redis
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER}
+      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "true"
+      TZ: Australia/Melbourne
+    secrets:
+      - authentik_secret_key
+    configs:
+      - source: authentik_entrypoint
+        target: /entrypoint-wrapper.sh
+        mode: 0555
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./media:/media
+      - ./certs:/certs
+      - ./custom-templates:/templates
+    networks:
+      - backend
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == srv-1
+      restart_policy:
+        condition: on-failure
+
+
+volumes:
+  database:
+    name: authentik_database
+    external: true
+  redis:
+    name: authentik_redis
+    external: true
+
+networks:
+  frontend:
+    external: true
+  backend:
+    external: true
+secrets:
+  authentik_secret_key:
+    external: true
+configs:
+  authentik_entrypoint:
+    file: ./entrypoint.sh

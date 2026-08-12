@@ -1,0 +1,52 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v1.3.2
+
+    entrypoint: ["/entrypoint.sh"]
+    command: ["node", "server.js"]
+
+    networks:
+      - frontend
+
+    volumes:
+      - ./config:/app/config
+      - ./images:/app/public/images
+      - ./icons:/app/public/icons
+      - ./entrypoint.sh:/entrypoint.sh:ro
+
+    secrets:
+      - homepage_proxmox_username
+      - homepage_proxmox_password
+
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: homepage.srv-1.home.doubie.dev
+      PUID: 1000
+      PGID: 1000
+      TZ: Australia/Melbourne
+
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=frontend
+        - traefik.http.routers.homepage.rule=Host(`homepage.srv-1.home.doubie.dev`)
+        - traefik.http.routers.homepage.entrypoints=websecure
+        - traefik.http.routers.homepage.tls=true
+        - traefik.http.routers.homepage.tls.certresolver=cloudflare
+        - traefik.http.routers.homepage.service=homepage
+        - traefik.http.routers.homepage.middlewares=authentik@file
+        - traefik.http.services.homepage.loadbalancer.server.port=3000
+      placement:
+        constraints:
+          - node.hostname == srv-1
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  homepage_proxmox_username:
+    external: true
+  homepage_proxmox_password:
+    external: true
+
+networks:
+  frontend:
+    external: true

@@ -1,0 +1,15 @@
+  routers:
+    authentik-outpost:
+      entryPoints:
+        - websecure
+      rule: "Host(`traefik.srv-1.home.doubie.dev`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      priority: 100
+      service: authentik-outpost
+      tls:
+        certResolver: cloudflare
+
+  services:
+    authentik-outpost:
+      loadBalancer:
+        servers:
+          - url: "http://authentik_server:9001"
