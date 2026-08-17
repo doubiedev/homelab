@@ -11,10 +11,14 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD_FILE: /run/secrets/authentik_postgres_password
+      POSTGRES_USER_FILE: /run/secrets/authentik_postgres_user
+      POSTGRES_DB_FILE: /run/secrets/authentik_postgres_db
       TZ: Australia/Melbourne
+    secrets:
+      - authentik_postgres_password
+      - authentik_postgres_user
+      - authentik_postgres_db
     networks:
       backend:
         aliases:
@@ -53,24 +57,28 @@ services:
 
   server:
     image: ghcr.io/goauthentik/server:2026.5
-    entrypoint:
-      - /entrypoint-wrapper.sh
+    # entrypoint:
+    #   - /entrypoint-wrapper.sh
     command: server
     environment:
+      AUTHENTIK_SECRET_KEY: file:///run/secrets/authentik_secret_key
       AUTHENTIK_REDIS__HOST: redis
       AUTHENTIK_POSTGRESQL__HOST: postgresql
-      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER}
-      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_POSTGRESQL__USER: file:///run/secrets/authentik_postgres_user
+      AUTHENTIK_POSTGRESQL__NAME: file:///run/secrets/authentik_postgres_db
+      AUTHENTIK_POSTGRESQL__PASSWORD: file:///run/secrets/authentik_postgres_password
       AUTHENTIK_ERROR_REPORTING__ENABLED: "true"
       AUTHENTIK_LISTEN__HTTP: 0.0.0.0:9001
       TZ: Australia/Melbourne
     secrets:
       - authentik_secret_key
-    configs:
-      - source: authentik_entrypoint
-        target: /entrypoint-wrapper.sh
-        mode: 0555
+      - authentik_postgres_user
+      - authentik_postgres_db
+      - authentik_postgres_password
+    # configs:
+    #   - source: authentik_entrypoint
+    #     target: /entrypoint-wrapper.sh
+    #     mode: 0555
     volumes:
       - ./media:/media
       - ./custom-templates:/templates
@@ -86,7 +94,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.swarm.network=frontend
-        - traefik.http.routers.authentik.rule=Host(`authentik.srv-1.home.doubie.dev`)
+        - traefik.http.routers.authentik.rule=Host(`authentik.home.doubie.dev`)
         - traefik.http.routers.authentik.entrypoints=websecure
         - traefik.http.routers.authentik.tls=true
         - traefik.http.routers.authentik.tls.certresolver=cloudflare
@@ -95,24 +103,28 @@ services:
 
   worker:
     image: ghcr.io/goauthentik/server:2026.5
-    entrypoint:
-      - /entrypoint-wrapper.sh
+    # entrypoint:
+    #   - /entrypoint-wrapper.sh
     command: worker
     user: root
     environment:
+      AUTHENTIK_SECRET_KEY: file:///run/secrets/authentik_secret_key
       AUTHENTIK_REDIS__HOST: redis
       AUTHENTIK_POSTGRESQL__HOST: postgresql
-      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER}
-      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB}
-      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_POSTGRESQL__USER: file:///run/secrets/authentik_postgres_user
+      AUTHENTIK_POSTGRESQL__NAME: file:///run/secrets/authentik_postgres_db
+      AUTHENTIK_POSTGRESQL__PASSWORD: file:///run/secrets/authentik_postgres_password
       AUTHENTIK_ERROR_REPORTING__ENABLED: "true"
       TZ: Australia/Melbourne
     secrets:
       - authentik_secret_key
-    configs:
-      - source: authentik_entrypoint
-        target: /entrypoint-wrapper.sh
-        mode: 0555
+      - authentik_postgres_user
+      - authentik_postgres_db
+      - authentik_postgres_password
+    # configs:
+    #   - source: authentik_entrypoint
+    #     target: /entrypoint-wrapper.sh
+    #     mode: 0555
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./media:/media
@@ -144,6 +156,12 @@ networks:
 secrets:
   authentik_secret_key:
     external: true
-configs:
-  authentik_entrypoint:
-    file: ./entrypoint.sh
+  authentik_postgres_user:
+    external: true
+  authentik_postgres_db:
+    external: true
+  authentik_postgres_password:
+    external: true
+# configs:
+#   authentik_entrypoint:
+#     file: ./entrypoint.sh

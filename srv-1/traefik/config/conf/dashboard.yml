@@ -2,7 +2,7 @@
     authentik-outpost:
       entryPoints:
         - websecure
-      rule: "Host(`traefik.srv-1.home.doubie.dev`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      rule: "Host(`traefik.home.doubie.dev`) && PathPrefix(`/outpost.goauthentik.io/`)"
       priority: 100
       service: authentik-outpost
       tls:

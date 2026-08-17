@@ -11,13 +11,13 @@
         widget:
           type: proxmox
           url: https://pve-1.home.doubie.dev:8006
-          username: {{HOMEPAGE_VAR_PROXMOX_USERNAME}}
-          password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+          username: {{HOMEPAGE_FILE_PROXMOX_USERNAME}}
+          password: {{HOMEPAGE_FILE_PROXMOX_PASSWORD}}
     - Traefik:
-        href: https://traefik.srv-1.home.doubie.dev
-        description: traefik on srv-1
+        href: https://traefik.home.doubie.dev
+        # description: traefik on srv-1
         icon: traefik.png
-        siteMonitor: https://traefik.srv-1.home.doubie.dev
+        siteMonitor: https://traefik.home.doubie.dev
     - Router:
         href: http://192.168.0.1/
         description: Router admin portal
@@ -25,44 +25,44 @@
 
 - Management, Security and Identity:
     - Portainer:
-        href: https://portainer.srv-1.home.doubie.dev
-        description: portainer on srv-1
+        href: https://portainer.home.doubie.dev
+        # description: portainer on srv-1
         icon: portainer.png
-        siteMonitor: https://portainer.srv-1.home.doubie.dev
+        siteMonitor: https://portainer.home.doubie.dev
     - Authentik:
-        href: https://authentik.srv-1.home.doubie.dev
-        description: authentik on srv-1
+        href: https://authentik.home.doubie.dev
+        # description: authentik on srv-1
         icon: authentik.png
-        siteMonitor: https://authentik.srv-1.home.doubie.dev
+        siteMonitor: https://authentik.home.doubie.dev
     - Netbird:
-        href: https://netbird.srv-1.home.doubie.dev
-        description: netbird on srv-1
+        href: https://netbird.home.doubie.dev
+        # description: netbird on srv-1
         icon: netbird.png
-        siteMonitor: https://netbird.srv-1.home.doubie.dev
+        siteMonitor: https://netbird.home.doubie.dev
     - Syncthing:
-        href: https://syncthing.srv-1.home.doubie.dev
-        description: syncthing on srv-1
+        href: https://syncthing.home.doubie.dev
+        # description: syncthing on srv-1
         icon: syncthing.png
-        siteMonitor: https://syncthing.srv-1.home.doubie.dev
+        siteMonitor: https://syncthing.home.doubie.dev
 
 - Services:
     - Nextcloud:
-        href: https://nc.srv-1.home.doubie.dev
-        description: nextcloud on srv-1
+        href: https://nc.home.doubie.dev
+        # description: nextcloud on srv-1
         icon: nextcloud.png
-        siteMonitor: https://nc.srv-1.home.doubie.dev
+        siteMonitor: https://nc.home.doubie.dev
     - Jellyfin:
-        href: https://jellyfin.srv-1.home.doubie.dev
-        description: jellyfin media server
+        href: https://jellyfin.home.doubie.dev
+        # description: jellyfin media server
         icon: jellyfin.png
-        siteMonitor: https://jellyfin.srv-1.home.doubie.dev
+        siteMonitor: https://jellyfin.home.doubie.dev
     - Radarr:
-        href: https://radarr.srv-1.home.doubie.dev
-        description: radarr on srv-1
+        href: https://radarr.home.doubie.dev
+        # description: radarr on srv-1
         icon: radarr.png
-        siteMonitor: https://radarr.srv-1.home.doubie.dev
+        siteMonitor: https://radarr.home.doubie.dev
     - Nginx:
-        href: https://nginx.srv-1.home.doubie.dev
-        description: nginx web server
+        href: https://nginx.home.doubie.dev
+        # description: nginx web server
         icon: nginx.png
-        siteMonitor: https://nginx.srv-1.home.doubie.dev
+        siteMonitor: https://nginx.home.doubie.dev

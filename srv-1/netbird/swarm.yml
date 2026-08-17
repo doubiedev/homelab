@@ -14,7 +14,7 @@ services:
         condition: on-failure
       labels:
         - traefik.enable=true
-        - traefik.http.routers.netbird-dashboard.rule=Host(`netbird.srv-1.home.doubie.dev`)
+        - traefik.http.routers.netbird-dashboard.rule=Host(`netbird.home.doubie.dev`)
         - traefik.http.routers.netbird-dashboard.entrypoints=websecure
         - traefik.http.routers.netbird-dashboard.tls=true
         - traefik.http.routers.netbird-dashboard.tls.certresolver=cloudflare
@@ -45,13 +45,13 @@ services:
       labels:
         - traefik.enable=true
         # gRPC router (needs h2c backend for HTTP/2 cleartext)
-        - traefik.http.routers.netbird-grpc.rule=Host(`netbird.srv-1.home.doubie.dev`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))
+        - traefik.http.routers.netbird-grpc.rule=Host(`netbird.home.doubie.dev`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`))
         - traefik.http.routers.netbird-grpc.entrypoints=websecure
         - traefik.http.routers.netbird-grpc.tls=true
         - traefik.http.routers.netbird-grpc.tls.certresolver=cloudflare
         - traefik.http.routers.netbird-grpc.service=netbird-server-h2c
         # Backend router (relay, WebSocket, API, OAuth2)
-        - traefik.http.routers.netbird-backend.rule=Host(`netbird.srv-1.home.doubie.dev`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))
+        - traefik.http.routers.netbird-backend.rule=Host(`netbird.home.doubie.dev`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))
         - traefik.http.routers.netbird-backend.entrypoints=websecure
         - traefik.http.routers.netbird-backend.tls=true
         - traefik.http.routers.netbird-backend.tls.certresolver=cloudflare

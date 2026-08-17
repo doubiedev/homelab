@@ -26,7 +26,7 @@ services:
         - traefik.enable=true
         - traefik.swarm.network=frontend
 
-        - traefik.http.routers.portainer.rule=Host(`portainer.srv-1.home.doubie.dev`)
+        - traefik.http.routers.portainer.rule=Host(`portainer.home.doubie.dev`)
         - traefik.http.routers.portainer.entrypoints=websecure
         - traefik.http.routers.portainer.tls=true
         - traefik.http.routers.portainer.tls.certresolver=cloudflare

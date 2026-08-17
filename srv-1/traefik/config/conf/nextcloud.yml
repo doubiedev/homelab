@@ -1,7 +1,7 @@
 http:
   routers:
     nextcloud:
-      rule: "Host(`nc.srv-1.home.doubie.dev`)"
+      rule: "Host(`nc.home.doubie.dev`)"
       entrypoints:
         - "websecure"
       service: nextcloud
