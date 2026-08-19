@@ -34,6 +34,9 @@ entryPoints:
           scheme: https
   websecure:
     address: :443
+    transport:
+      respondingTimeouts:
+        readTimeout: 0
 
 # -- Configure your CertificateResolver here...
 certificatesResolvers:
