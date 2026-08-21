@@ -97,6 +97,8 @@ remove_stack() {
         return
     fi
 
+    local network="${STACK}_default"
+
     echo "Removing stack '$STACK'..."
 
     docker stack rm "$STACK"
@@ -106,6 +108,14 @@ remove_stack() {
     while stack_exists; do
         sleep 1
     done
+
+    echo "Waiting for network '$network' to be removed..."
+
+    while docker network inspect "$network" >/dev/null 2>&1; do
+        sleep 1
+    done
+
+    echo "Stack '$STACK' has been removed."
 }
 
 get_stack_status() {
