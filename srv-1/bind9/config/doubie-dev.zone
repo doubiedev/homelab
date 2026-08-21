@@ -1,16 +1,16 @@
 $TTL 2d
 
-$ORIGIN home.doubie.dev.
+$ORIGIN doubie.dev.
 
-@                       IN      SOA     ns.home.doubie.dev. info.home.doubie.dev. (
-                                        2025060302  ; serial
+@                       IN      SOA     ns.doubie.dev. info.doubie.dev. (
+                                        2025060303  ; serial
                                         12h         ; refresh
                                         15m         ; retry
                                         3w          ; expire
                                         2h          ; minimum ttl
                                         )
 
-                        IN      NS      ns.home.doubie.dev.
+                        IN      NS      ns.doubie.dev.
 
 ns                      IN      A       192.168.2.1
 

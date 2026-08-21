@@ -6,9 +6,15 @@
     - Github:
         - abbr: GH
           href: https://github.com/
-    - Cloudflare dashboard:
+    - Cloudflare Dashboard:
         - abbr: CF
           href: https://dash.cloudflare.com/
+    - FlowVPS Dashboard:
+        - abbr: FV
+          href: https://control.flowvps.com/
+    - FlowVPS Billing:
+        - abbr: FV
+          href: https://billing.flowvps.com/
 
 - Social:
     - Reddit:

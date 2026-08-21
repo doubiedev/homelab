@@ -94,7 +94,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.swarm.network=frontend
-        - traefik.http.routers.authentik.rule=Host(`authentik.home.doubie.dev`)
+        - traefik.http.routers.authentik.rule=Host(`authentik.doubie.dev`)
         - traefik.http.routers.authentik.entrypoints=websecure
         - traefik.http.routers.authentik.tls=true
         - traefik.http.routers.authentik.tls.certresolver=cloudflare

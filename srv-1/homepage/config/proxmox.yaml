@@ -1,4 +1,9 @@
 pve-1: # must match your actual Proxmox node name
-  url: https://pve-1.home.doubie.dev:8006
+  url: https://pve-1.doubie.dev:8006
+  token: {{HOMEPAGE_FILE_PROXMOX_USERNAME}}
+  secret: {{HOMEPAGE_FILE_PROXMOX_PASSWORD}}
+
+pve-2:
+  url: https://pve-2.doubie.dev:8006
   token: {{HOMEPAGE_FILE_PROXMOX_USERNAME}}
   secret: {{HOMEPAGE_FILE_PROXMOX_PASSWORD}}

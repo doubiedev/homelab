@@ -19,7 +19,7 @@ services:
       - homepage_proxmox_password
 
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: homepage.home.doubie.dev
+      HOMEPAGE_ALLOWED_HOSTS: homepage.doubie.dev
       HOMEPAGE_FILE_PROXMOX_USERNAME: /run/secrets/homepage_proxmox_username
       HOMEPAGE_FILE_PROXMOX_PASSWORD: /run/secrets/homepage_proxmox_password
       PUID: 1000
@@ -30,7 +30,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.swarm.network=frontend
-        - traefik.http.routers.homepage.rule=Host(`homepage.home.doubie.dev`)
+        - traefik.http.routers.homepage.rule=Host(`homepage.doubie.dev`)
         - traefik.http.routers.homepage.entrypoints=websecure
         - traefik.http.routers.homepage.tls=true
         - traefik.http.routers.homepage.tls.certresolver=cloudflare
