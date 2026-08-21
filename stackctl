@@ -3,18 +3,17 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_FILE="$SCRIPT_DIR/.stackctl"
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
 
-DEFAULT_SERVER=""
-
-if [[ -f "$CONFIG_FILE" ]]; then
-    # shellcheck disable=SC1090
-    source "$CONFIG_FILE"
-fi
+# Directories in the repo root that should not be treated as stacks.
+# Add directory names here as needed.
+IGNORED_DIRS=(
+    ".git"
+    "_deprecated"
+)
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -23,7 +22,7 @@ fi
 usage() {
     cat <<EOF
 Usage:
-  $0 <command> <stack> [server]
+  $0 <command> <stack>
 
 Commands:
   start       Deploy a stack
@@ -32,19 +31,16 @@ Commands:
   status      Show stack services
   ps          Show stack tasks
   logs        Show stack logs
-  list        List available servers and stacks
-  set-server  Set the default server
+  list        List available stacks
 
 Examples:
   $0 start portainer
-  $0 start portainer srv-2
   $0 stop portainer
   $0 restart portainer
   $0 status portainer
   $0 ps portainer
   $0 logs portainer
   $0 list
-  $0 set-server srv-1
 EOF
     exit 1
 }
@@ -53,59 +49,20 @@ stack_exists() {
     docker stack ls --format '{{.Name}}' | grep -qx "$STACK"
 }
 
-require_server() {
-    if [[ -n "$SERVER" ]]; then
-        return
-    fi
-
-    echo "Error: no server specified and no default server is configured."
-    echo
-    echo "Set a default server with:"
-    echo "  $0 set-server srv-1"
-    echo
-    echo "Or specify a server explicitly:"
-    echo "  $0 $COMMAND $STACK srv-1"
-    exit 1
-}
-
-validate_server() {
-    local server="$1"
-    local server_dir="$SCRIPT_DIR/$server"
-
-    if [[ ! "$server" =~ ^srv-[0-9]+$ ]]; then
-        echo "Error: invalid server name '$server'."
-        echo
-        echo "Server names must follow the format:"
-        echo "  srv-<number>"
-        echo
-        echo "Examples:"
-        echo "  srv-1"
-        echo "  srv-2"
-        echo "  srv-10"
-        exit 1
-    fi
-
-    if [[ ! -d "$server_dir" ]]; then
-        echo "Error: server '$server' does not exist."
-        echo
-        echo "Expected server directory:"
-        echo "  $server_dir"
-        exit 1
-    fi
-}
-# ---------------------------------------------------------------------------
-# Stack operations
-# ---------------------------------------------------------------------------
-
-deploy_stack() {
-    require_server
-    validate_server "$SERVER"
-
-    local stack_dir="$SCRIPT_DIR/$SERVER/$STACK"
+validate_stack() {
+    local stack="$1"
+    local stack_dir="$SCRIPT_DIR/$stack"
     local compose_file="$stack_dir/swarm.yml"
 
+    if [[ ! "$stack" =~ ^[a-zA-Z0-9][a-zA-Z0-9_-]*$ ]]; then
+        echo "Error: invalid stack name '$stack'."
+        exit 1
+    fi
+
     if [[ ! -d "$stack_dir" ]]; then
-        echo "Error: stack directory does not exist:"
+        echo "Error: stack '$stack' does not exist."
+        echo
+        echo "Expected stack directory:"
         echo "  $stack_dir"
         exit 1
     fi
@@ -115,8 +72,19 @@ deploy_stack() {
         echo "  $compose_file"
         exit 1
     fi
+}
 
-    echo "Deploying '$STACK' on '$SERVER'..."
+# ---------------------------------------------------------------------------
+# Stack operations
+# ---------------------------------------------------------------------------
+
+deploy_stack() {
+    validate_stack "$STACK"
+
+    local stack_dir="$SCRIPT_DIR/$STACK"
+    local compose_file="$stack_dir/swarm.yml"
+
+    echo "Deploying '$STACK'..."
 
     docker stack deploy \
         -c "$compose_file" \
@@ -138,20 +106,6 @@ remove_stack() {
     while stack_exists; do
         sleep 1
     done
-}
-
-set_default_server() {
-    local server="$1"
-
-    validate_server "$server"
-
-    cat > "$CONFIG_FILE" <<EOF
-DEFAULT_SERVER="$server"
-EOF
-
-    echo "Default server set to '$server'."
-    echo "Configuration saved to:"
-    echo "  $CONFIG_FILE"
 }
 
 get_stack_status() {
@@ -188,29 +142,38 @@ get_stack_status() {
 }
 
 list_stacks() {
-    local server="$1"
-    local server_dir="$SCRIPT_DIR/$server"
-
-    echo "Server: $server"
-
-    if [[ "$server" == "$DEFAULT_SERVER" ]]; then
-        echo "  (default)"
-    fi
-
     local found=false
+    local stack_dir
+    local stack
+    local status
+    local ignored
+    local dir_name
+    local ignored_dir
+
+    echo "Available stacks:"
+    echo
 
     while IFS= read -r stack_dir; do
+        dir_name="$(basename "$stack_dir")"
+        ignored=false
+
+        for ignored_dir in "${IGNORED_DIRS[@]}"; do
+            if [[ "$dir_name" == "$ignored_dir" ]]; then
+                ignored=true
+                break
+            fi
+        done
+
+        [[ "$ignored" == true ]] && continue
+
         found=true
 
-        local stack
-        local status
-
-        stack="$(basename "$stack_dir")"
+        stack="$dir_name"
         status="$(get_stack_status "$stack")"
 
         printf "  %-20s %s\n" "$stack" "$status"
     done < <(
-        find "$server_dir" \
+        find "$SCRIPT_DIR" \
             -mindepth 1 \
             -maxdepth 1 \
             -type d \
@@ -220,38 +183,6 @@ list_stacks() {
 
     if [[ "$found" == false ]]; then
         echo "  (no stacks)"
-    fi
-
-    echo
-}
-
-list_all() {
-    local found=false
-
-    echo "Available servers:"
-    echo
-
-    while IFS= read -r server_dir; do
-        found=true
-        list_stacks "$(basename "$server_dir")"
-    done < <(
-        find "$SCRIPT_DIR" \
-            -mindepth 1 \
-            -maxdepth 1 \
-            -type d \
-            -print |
-        while IFS= read -r dir; do
-            server="$(basename "$dir")"
-
-            if [[ "$server" =~ ^srv-[0-9]+$ ]]; then
-                printf '%s\n' "$dir"
-            fi
-        done |
-        sort -V
-    )
-
-    if [[ "$found" == false ]]; then
-        echo "  No server directories found."
     fi
 }
 
@@ -276,28 +207,16 @@ case "$COMMAND" in
             exit 1
         }
 
-        list_all
-        exit 0
-        ;;
-
-    set-server)
-        [[ $# -eq 2 ]] || {
-            echo "Usage:"
-            echo "  $0 set-server <server>"
-            exit 1
-        }
-
-        set_default_server "$2"
+        list_stacks
         exit 0
         ;;
 
 esac
 
 # All remaining commands require a stack argument.
-[[ $# -ge 2 ]] || usage
+[[ $# -eq 2 ]] || usage
 
 STACK="$2"
-SERVER="${3:-$DEFAULT_SERVER}"
 
 # ---------------------------------------------------------------------------
 # Commands
@@ -319,8 +238,7 @@ case "$COMMAND" in
         ;;
 
     restart)
-        require_server
-        validate_server "$SERVER"
+        validate_stack "$STACK"
 
         if stack_exists; then
             remove_stack

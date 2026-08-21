@@ -7,8 +7,8 @@
 *.log.gz
 *.bak
 _deprecated/organizr/config/
-srv-2/jellyfin/cache/
-srv-2/jellyfin/config/
-srv-2/radarr/config/
-srv-2/syncthing/config/
+jellyfin/cache/
+jellyfin/config/
+radarr/config/
+syncthing/config/
 .stackctl
