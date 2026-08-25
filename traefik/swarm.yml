@@ -4,6 +4,7 @@ services:
     image: docker.io/library/traefik:v3.7
     networks:
       - frontend
+      - backend
     ports:
       # - 80:80
       # - 443:443
@@ -46,6 +47,8 @@ services:
         - traefik.http.routers.dashboard.middlewares=authentik@file
 networks:
   frontend:
+    external: true
+  backend:
     external: true
 secrets:
   cloudflare_api_token:
