@@ -1,0 +1,62 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+
+    # Optional - run Jellyfin as a non-root user.
+    # Replace with the UID:GID that owns your Jellyfin directories/media.
+    user: "1000:1000"
+
+    networks:
+      - frontend
+
+    volumes:
+      - /opt/jellyfin/config:/config
+      - /opt/jellyfin/cache:/cache
+
+      - type: bind
+        source: /mnt/data/media
+        target: /media
+
+      # Optional:
+      # - type: bind
+      #   source: /mnt/data/media2
+      #   target: /media2
+      #   read_only: true
+
+      # Optional:
+      # - type: bind
+      #   source: /opt/jellyfin/fonts
+      #   target: /usr/local/share/fonts/custom
+      #   read_only: true
+
+    environment:
+      JELLYFIN_PublishedServerUrl: https://jellyfin.doubie.dev
+      TZ: Australia/Melbourne
+
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == srv-2
+
+      restart_policy:
+        condition: on-failure
+
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=frontend
+
+        - traefik.http.routers.jellyfin.rule=Host(`jellyfin.doubie.dev`)
+        - traefik.http.routers.jellyfin.entrypoints=websecure
+        - traefik.http.routers.jellyfin.tls=true
+        - traefik.http.routers.jellyfin.tls.certresolver=cloudflare
+        - traefik.http.routers.jellyfin.service=jellyfin
+        # - traefik.http.routers.jellyfin.middlewares=authentik@file
+
+        - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+
+networks:
+  frontend:
+    external: true

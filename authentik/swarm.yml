@@ -139,6 +139,27 @@ services:
       restart_policy:
         condition: on-failure
 
+  ldap_outpost:
+    image: ghcr.io/goauthentik/ldap:2026.5.6
+    # Optionally specify the container's network, which must be able to reach the core authentik server.
+    networks:
+      - frontend
+      - backend
+    ports:
+      # - 389:3389
+      - 636:6636
+    environment:
+      AUTHENTIK_HOST: https://authentik.doubie.dev
+      AUTHENTIK_INSECURE: "false"
+      AUTHENTIK_TOKEN: file:///run/secrets/authentik_ldap_token
+    secrets:
+      - authentik_ldap_token
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == srv-1
+      restart_policy:
+        condition: on-failure
 
 volumes:
   database:
@@ -161,6 +182,8 @@ secrets:
   authentik_postgres_db:
     external: true
   authentik_postgres_password:
+    external: true
+  authentik_ldap_token:
     external: true
 # configs:
 #   authentik_entrypoint:
