@@ -1,6 +1,6 @@
 services:
   homepage:
-    image: ghcr.io/gethomepage/homepage:v1.3.2
+    image: ghcr.io/gethomepage/homepage:v2.1.2
 
     entrypoint: ["/entrypoint.sh"]
     command: ["node", "server.js"]
