@@ -1,37 +1,28 @@
 services:
   app:
-    image: docker.io/portainer/portainer-ce:2.21.1
-
+    image: docker.io/portainer/portainer-ce:2.45.0
     command: -H unix:///var/run/docker.sock
-
     volumes:
       - portainer-data:/data
       - /run/docker.sock:/var/run/docker.sock
-
     networks:
       - frontend
-
     environment:
       TZ: Australia/Melbourne
-
     deploy:
       placement:
         constraints:
           - node.hostname == srv-1
-
       restart_policy:
         condition: on-failure
-
       labels:
         - traefik.enable=true
         - traefik.swarm.network=frontend
-
         - traefik.http.routers.portainer.rule=Host(`portainer.doubie.dev`)
         - traefik.http.routers.portainer.entrypoints=websecure
         - traefik.http.routers.portainer.tls=true
         - traefik.http.routers.portainer.tls.certresolver=cloudflare
         - traefik.http.routers.portainer.service=portainer
-
         - traefik.http.services.portainer.loadbalancer.server.port=9000
 
 volumes:
