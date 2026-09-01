@@ -1,6 +1,6 @@
 services:
   jellyfin:
-    image: jellyfin/jellyfin:latest
+    image: jellyfin/jellyfin:10
 
     # Optional - run Jellyfin as a non-root user.
     # Replace with the UID:GID that owns your Jellyfin directories/media.
