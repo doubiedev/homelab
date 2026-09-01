@@ -57,8 +57,6 @@ services:
 
   server:
     image: ghcr.io/goauthentik/server:2026.5
-    # entrypoint:
-    #   - /entrypoint-wrapper.sh
     command: server
     environment:
       AUTHENTIK_SECRET_KEY: file:///run/secrets/authentik_secret_key
@@ -75,10 +73,6 @@ services:
       - authentik_postgres_user
       - authentik_postgres_db
       - authentik_postgres_password
-    # configs:
-    #   - source: authentik_entrypoint
-    #     target: /entrypoint-wrapper.sh
-    #     mode: 0555
     volumes:
       - ./media:/media
       - ./custom-templates:/templates
@@ -103,8 +97,6 @@ services:
 
   worker:
     image: ghcr.io/goauthentik/server:2026.5
-    # entrypoint:
-    #   - /entrypoint-wrapper.sh
     command: worker
     user: root
     environment:
@@ -121,10 +113,6 @@ services:
       - authentik_postgres_user
       - authentik_postgres_db
       - authentik_postgres_password
-    # configs:
-    #   - source: authentik_entrypoint
-    #     target: /entrypoint-wrapper.sh
-    #     mode: 0555
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./media:/media
@@ -185,6 +173,3 @@ secrets:
     external: true
   authentik_ldap_token:
     external: true
-# configs:
-#   authentik_entrypoint:
-#     file: ./entrypoint.sh
