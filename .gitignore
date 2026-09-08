@@ -6,9 +6,9 @@
 *.log
 *.log.gz
 *.bak
-_deprecated/organizr/config/
-jellyfin/cache/
-jellyfin/config/
-radarr/config/
-syncthing/config/
+services/_deprecated/organizr/config/
+services/jellyfin/cache/
+services/jellyfin/config/
+services/radarr/config/
+services/syncthing/config/
 .stackctl
