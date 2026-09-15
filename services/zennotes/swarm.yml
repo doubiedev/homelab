@@ -1,0 +1,71 @@
+
+services:
+  zennotes:
+    image: adibhanna/zennotes:2.50
+    hostname: zennotes
+
+    environment:
+      ZENNOTES_AUTH_TOKEN_FILE: /run/secrets/zennotes_auth_token
+      ZENNOTES_BEHIND_TLS: "1"
+
+      ZENNOTES_TRUSTED_PROXIES: "10.0.1.0/24"
+
+      ZENNOTES_BASE_PATH: "/"
+      ZENNOTES_BROWSE_ROOTS: "/workspace"
+      ZENNOTES_PERSIST_SESSIONS: "1"
+
+    secrets:
+      - zennotes_auth_token
+
+    volumes:
+      - type: bind
+        source: /mnt/data/zennotes/vault
+        target: /workspace
+
+      - type: bind
+        source: /mnt/data/zennotes/data
+        target: /data
+
+    read_only: true
+
+    tmpfs:
+      - /tmp
+
+    cap_drop:
+      - ALL
+
+    networks:
+      - frontend
+
+    deploy:
+      replicas: 1
+
+      placement:
+        constraints:
+          - node.hostname == srv-2
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=frontend
+
+        - traefik.http.routers.zennotes.rule=Host(`notes.doubie.dev`)
+        - traefik.http.routers.zennotes.entrypoints=websecure
+        - traefik.http.routers.zennotes.tls=true
+        - traefik.http.routers.zennotes.tls.certresolver=cloudflare
+        - traefik.http.routers.zennotes.service=zennotes
+
+        - traefik.http.services.zennotes.loadbalancer.server.port=7878
+
+networks:
+  frontend:
+    external: true
+
+secrets:
+  zennotes_auth_token:
+    external: true
