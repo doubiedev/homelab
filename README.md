@@ -1,5 +1,8 @@
 # Homelab
 
+> [!WARNING]
+> Documentation under development/WIP
+
 > Personal homelab infrastructure designed, deployed, and maintained as both a passion project and a practical environment for developing systems administration, networking, cybersecurity, and troubleshooting skills.
 
 <!-- toc -->
